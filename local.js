@@ -1,15 +1,17 @@
-usuarios = [];
+let usuarios = [];
 
 function carregar(){
-    try {
-        usuarios = getObjectLocalStorage("usuarios");
-    }
-    catch (usuarios){
+    usuarios.push(getObjectLocalStorage("usuarios"));
+    console.log(usuarios);
+    if (usuarios[0] == null) {
         var admin = new Usuario("admin", "admin", "admin");
-        usuarios.push(admin);
+        usuarios.pop(0);
+        usuarios = [admin];
+        console.log(usuarios);
         setObjectLocalStorage("usuarios", usuarios);
-    }
+    } 
 }
+
 
 function cadastro() {
     if (typeof (Storage) !== "undefined") {
@@ -17,7 +19,8 @@ function cadastro() {
         var senha = document.getElementById("nova_senha").value;
 
         var usuario = new Usuario(nome, senha, "normal");
-        var usuarios = getObjectLocalStorage("usuarios");
+        usuarios = getObjectLocalStorage("usuarios");
+        console.log("oi "+usuarios);
         usuarios.push(usuario);
 
         setObjectLocalStorage("usuarios", usuarios);
