@@ -1,12 +1,13 @@
 let usuarios = [];
 
 function carregar(){
-    usuarios.push(getObjectLocalStorage("usuarios"));
+    usuarios = getObjectLocalStorage("usuarios");
     console.log(usuarios);
-    if (usuarios[0] == null) {
+    if (usuarios == null) {
         var admin = new Usuario("admin", "admin", "admin");
-        usuarios.pop(0);
-        usuarios = [admin];
+        console.log(usuarios);
+        usuarios = [];
+        usuarios.push(admin);
         console.log(usuarios);
         setObjectLocalStorage("usuarios", usuarios);
     } 
