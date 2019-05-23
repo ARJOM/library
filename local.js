@@ -21,7 +21,6 @@ function cadastro() {
 
         var usuario = new Usuario(nome, senha, "normal");
         usuarios = getObjectLocalStorage("usuarios");
-        console.log("oi "+usuarios);
         usuarios.push(usuario);
 
         setObjectLocalStorage("usuarios", usuarios);
@@ -41,11 +40,40 @@ function login() {
         resultado = cadastrados[i];
         if (resultado.nome == nome && resultado.senha == senha) {
             setObjectLocalStorage("logado", resultado);
-            window.alert("logou");
+            location.href = "account.html";
         }
     };
 }
 
+function exibir() {
+    let usuario = getObjectLocalStorage("logado");
+    
+    let minhaSecao = document.getElementById("dados") ;
+    let resultado = "Nome de Usuário:</br>Tipo: "+ usuario.tipo +"</br>Senha: "+usuario.senha;
+    minhaSecao.innerHTML = resultado;
+}
+
+function updateUser() {
+    // Ainda Nada
+}
+
+function delateUser() {
+    var usuario = getObjectLocalStorage("logado")[0];
+    let cadastrados = getObjectLocalStorage("usuarios");
+
+    for (var i = 0; i < cadastrados.length; i++){
+        resultado = cadastrados[i];
+        if (usuario == resultado){
+            cadastrados.splice(i);
+        }
+    }
+    setObjectLocalStorage("usuarios", cadastrados);
+    setObjectLocalStorage("logado", "");
+    
+}
+
+
+//Classes
 
 function Usuario(nome, senha, tipo){
 	this.nome = nome;
@@ -55,6 +83,9 @@ function Usuario(nome, senha, tipo){
         return "O usuário é: "+this.nome+"!";
     }
 }
+
+
+// Funções Default
 
 function setObjectLocalStorage(key,value){
 	localStorage.setItem(key, JSON.stringify(value));
